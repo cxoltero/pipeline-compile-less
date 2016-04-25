@@ -30,18 +30,12 @@ module.exports = {
 };
 
 function compileLESS() {
-  var pipeline = makePipe();
-
-  return pipeline();
-}
-
-function makePipe() {
   var lessPlugins = {};
   var autoprefix = new autoprefixPlugin(config.plugins.autoprefix);
+  var pipeline;
 
   lessPlugins.plugins = config.autoprefix ? [autoprefix] : [];
-
-  return lazypipe()
+  pipeline = lazypipe()
     .pipe(function() {
       return gulpIf(config.addSourceMaps, sourcemaps.init());
     })
@@ -54,4 +48,6 @@ function makePipe() {
     .pipe(function() {
       return gulpIf(config.addSourceMaps, sourcemaps.write('maps'));
     });
+
+  return pipeline();
 }
