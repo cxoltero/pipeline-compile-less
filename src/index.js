@@ -25,11 +25,11 @@ module.exports = {
       handyman.log('Merging custom configuration');
       config = handyman.mergeConf(config, options);
     }
-    return compileLESS();
+    return pipelineFactory();
   }
 };
 
-function compileLESS() {
+function pipelineFactory() {
   var lessPlugins = {};
   var autoprefix = new autoprefixPlugin(config.plugins.autoprefix);
   var pipeline;
